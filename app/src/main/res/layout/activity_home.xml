@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/AppTheme.NoActionBar"
+    android:weightSum="20"
+    >
+
+
+  <LinearLayout
+      android:id="@+id/fl_2"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="?actionBarSize"
+      android:layout_weight="9"
+      >
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:scaleType="fitXY"
+          android:src="@drawable/image_oppo"
+          />
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/fl_3"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="5.5"
+      android:background="@color/home_back"
+      android:orientation="horizontal"
+      android:weightSum="10"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_weight="5"
+        tools:ignore="NestedWeights"
+        >
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+        <ImageButton
+            android:id="@+id/new_loan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:paddingBottom="20dp"
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp"
+            android:paddingTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/image_loan"
+            android:text="New Loan"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="New Loan"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+      </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="2dp"
+        android:layout_weight="5"
+        >
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+        <ImageButton
+            android:id="@+id/image_pre_loans"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:paddingBottom="20dp"
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp"
+            android:paddingTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/image_pre_loan"
+            android:text="Previous Loans"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="Previous Loans"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+      </FrameLayout>
+    </LinearLayout>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="5.5"
+      android:background="@color/home_back"
+      android:orientation="horizontal"
+      android:weightSum="10"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_weight="5"
+        >
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+        <ImageButton
+            android:id="@+id/image_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:paddingBottom="20dp"
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp"
+            android:paddingTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/image_user_profile"
+            android:text="Profile"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="Profile"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+      </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="2dp"
+        android:layout_weight="5"
+        >
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+        <ImageButton
+            android:id="@+id/image_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:paddingBottom="20dp"
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp"
+            android:paddingTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/image_password"
+            android:text="Update password"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="Update password"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+      </FrameLayout>
+    </LinearLayout>
+  </LinearLayout>
+</LinearLayout>

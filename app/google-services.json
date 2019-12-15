@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "748723093522",
+    "firebase_url": "https://oppoflex.firebaseio.com",
+    "project_id": "oppoflex",
+    "storage_bucket": "oppoflex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748723093522:android:784350fe935d27478058cb",
+        "android_client_info": {
+          "package_name": "com.sonusourav.oppoflex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748723093522-oasm6vrfqrhulcjjia6a1puaunoq1nug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sonusourav.oppoflex",
+            "certificate_hash": "b1f1e18e51b1790393538a9466572dec40ca0536"
+          }
+        },
+        {
+          "client_id": "748723093522-vb572g1eokrtncco1ncqa98671ovbq9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXwpusVKE6oWaF6dex7ZEgTRBqF7AUEPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748723093522-vb572g1eokrtncco1ncqa98671ovbq9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

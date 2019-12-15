@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    >
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    >
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Employment Info"
+      android:textColor="@color/black"
+      android:gravity="center_horizontal"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      android:layout_margin="20dp"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="10"
+      android:padding="5dp"
+      android:gravity="center_horizontal"
+      >
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="Employer First name"
+        android:textColor="@color/light_black"
+        android:paddingStart="5dp"
+        android:textSize="15sp"
+        android:paddingEnd="10dp"
+        android:layout_marginStart="20dp"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="Employer Last name"
+        android:textColor="@color/light_black"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:layout_gravity="end|center_vertical"
+        android:paddingEnd="10dp"
+        android:paddingStart="5dp"
+        />
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="10"
+      android:gravity="center_horizontal"
+      android:padding="5dp"
+      >
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/emp_first_name"
+        android:layout_weight="4.5"
+        android:hint="First name"
+        android:padding="10dp"
+        android:textColor="@color/light_black"
+        android:background="@drawable/border_edit_text"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/icon_mic"
+        />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/emp_last_name"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="20dp"
+        android:layout_weight="4.5"
+        android:background="@drawable/border_edit_text"
+        android:hint="Last name"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="@color/light_black"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/icon_mic"
+        />
+  </LinearLayout>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Name of Department"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:paddingStart="10dp"
+      android:paddingEnd="10dp"
+      />
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/depart"
+      android:hint="Department"
+      android:padding="10dp"
+      android:background="@drawable/border_edit_text"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:inputType="text"
+      android:drawableEnd="@drawable/icon_mic"
+      />
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Date of Retirement"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:paddingStart="10dp"
+      android:paddingEnd="10dp"
+      />
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/dor"
+      android:hint="Date of Retirement"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:background="@drawable/border_edit_text"
+      android:layout_marginTop="5dp"
+      android:textSize="18sp"
+      android:padding="10dp"
+      android:drawableEnd="@drawable/icon_calendar"
+      android:focusable="true"
+      />
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Designation"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:paddingStart="10dp"
+      android:paddingEnd="10dp"
+      />
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/designation"
+      android:hint="Designation"
+      android:padding="10dp"
+      android:background="@drawable/border_edit_text"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:inputType="text"
+      android:drawableEnd="@drawable/icon_mic"
+      />
+
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Experience"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="10dp"
+      android:paddingStart="10dp"
+      android:paddingEnd="10dp"
+      android:layout_marginBottom="-5dp"
+      />
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:id="@+id/experience"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:background="@drawable/border_edit_text"
+      android:layout_marginTop="5dp"
+      android:hint="Experience (in years)"
+      android:padding="10dp"
+      android:inputType="number"
+      android:drawableEnd="@drawable/icon_mic"
+      />
+
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Net Salary"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:paddingStart="10dp"
+      android:paddingEnd="10dp"
+      />
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/net_salary"
+      android:hint="Net Salary"
+      android:maxHeight="100dp"
+      android:padding="10dp"
+      android:background="@drawable/border_edit_text"
+      android:textColor="@color/light_black"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginTop="5dp"
+      android:inputType="numberDecimal"
+      android:drawableEnd="@drawable/icon_mic"
+      />
+</LinearLayout>
+</ScrollView>
