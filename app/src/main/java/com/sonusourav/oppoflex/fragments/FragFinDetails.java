@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -120,6 +121,10 @@ public class FragFinDetails extends Fragment implements View.OnClickListener, Vi
     saveAsDraft=getActivity().findViewById(R.id.save_as_draft);
     dialogUtils=new DialogUtils(getActivity(),"Sending details");
     calendar=Calendar.getInstance();
+    String myFormat = "dd/MM/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+    dor.setText(sdf.format(calendar.getTime()));
+
 
     finDetailsPref=new PreferenceManager(getActivity());
     firebaseAuth=FirebaseAuth.getInstance();
@@ -127,19 +132,24 @@ public class FragFinDetails extends Fragment implements View.OnClickListener, Vi
     baseRef=firebaseDatabase.getReference();
 
     if(getArguments()!=null){
-      if(getArguments().getString("draftLoan").equals("draftLoan") && Integer.parseInt(finDetailsPref.getDraftLevel())>1){
-        FinDetailsDao perDetailsDao=finDetailsPref.getFinDetails();
-        empFirstName.setText(perDetailsDao.getEmpFirstName());
-        empLastName.setText(perDetailsDao.getEmpLastName());
-        depart.setText(perDetailsDao.getDept());
-        dor.setText(perDetailsDao.getDor());
-        design.setText(perDetailsDao.getDesignation());
-        exp.setText(perDetailsDao.getExp());
-        salary.setText(perDetailsDao.getSalary());
-        value="draftLoan";
+      Log.d("FragFinDetails","arguments not null");
+      if(getArguments().getString("draftLoan")!=null) {
+        Log.d("FragFinDetails", "bundle not null");
+        Log.d("FragFinDetails", finDetailsPref.getDraftLevel());
+        Log.d("FragFinDetails", getArguments().getString("draftLoan"));
+
+        if (getArguments().getString("draftLoan").equals("draftLoan") && Integer.parseInt(finDetailsPref.getDraftLevel())==2) {
+          FinDetailsDao perDetailsDao = finDetailsPref.getFinDetails();
+          empFirstName.setText(perDetailsDao.getEmpFirstName());
+          empLastName.setText(perDetailsDao.getEmpLastName());
+          depart.setText(perDetailsDao.getDept());
+          dor.setText(perDetailsDao.getDor());
+          design.setText(perDetailsDao.getDesignation());
+          exp.setText(perDetailsDao.getExp());
+          salary.setText(perDetailsDao.getSalary());
+        }
       }
     }
-
 
   }
 
@@ -185,8 +195,7 @@ public class FragFinDetails extends Fragment implements View.OnClickListener, Vi
     finDetailsPref.setFinDetails(finDetails);
     finDetailsPref.setDraftLevel("2");
     Toast.makeText(getActivity(),"Saved successfully",Toast.LENGTH_SHORT).show();
-
-
+    value = "draftLoan";
   }
 
   private boolean checkIfFilled(EditText... inputText){

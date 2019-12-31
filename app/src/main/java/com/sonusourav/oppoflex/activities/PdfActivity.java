@@ -1,4 +1,4 @@
-package com.sonusourav.oppoflex.Utils;
+package com.sonusourav.oppoflex.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,13 +6,13 @@ import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.shockwave.pdfium.PdfDocument;
 import com.sonusourav.oppoflex.R;
-import com.sonusourav.oppoflex.activities.MainActivity;
 import java.io.File;
 import java.util.List;
 
@@ -34,6 +34,8 @@ public class PdfActivity extends AppCompatActivity
   private void init(){
     pdfView= (PDFView)findViewById(R.id.pdf_view);
     pdfFileName = getIntent().getStringExtra("filePath");
+    Toast.makeText(getApplicationContext(),pdfFileName,Toast.LENGTH_SHORT);
+    Log.d(TAG,pdfFileName);
     if(pdfFileName!=null)
     displayFromSdcard(pdfFileName);
     else{
@@ -50,7 +52,6 @@ public class PdfActivity extends AppCompatActivity
     pdfView.fromFile(file)
         .defaultPage(pageNumber)
         .enableSwipe(true)
-
         .swipeHorizontal(false)
         .onPageChange(this)
         .enableAnnotationRendering(true)
@@ -80,4 +81,9 @@ public class PdfActivity extends AppCompatActivity
       }
     }
   }
+
+  public void onBackPressed() {
+    NavUtils.navigateUpFromSameTask(this);
+  }
+
 }

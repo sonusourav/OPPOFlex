@@ -23,7 +23,9 @@ public class PreferenceManager {
   private static final String FIN_DETAILS = "finDetails";
   private static final String LOAN_DETAILS = "loanDetails";
   private static final String DRAFT_LOAN = "draftLoan";
-  private static final String DRAFT_LEVEL = "0";
+  private static final String DRAFT_LEVEL = "draftLevel";
+  private static final String LOAN_PROVIDER = "loanProvide";
+  private static final String LOAN_TYPE = "loantype";
   private SharedPreferences pref;
   private SharedPreferences.Editor editor;
 
@@ -108,6 +110,13 @@ public class PreferenceManager {
     editor.commit();
   }
 
+  public void setLoanData(String provider,String type){
+    editor.putString(LOAN_PROVIDER,provider);
+    editor.putString(LOAN_TYPE,type);
+    editor.commit();
+  }
+
+
   public String getPrefEmail() {
     return pref.getString(PREF_EMAIL, "email");
   }
@@ -141,7 +150,7 @@ public class PreferenceManager {
   }
 
   public String getDraftLevel() {
-    return DRAFT_LEVEL;
+     return pref.getString(DRAFT_LEVEL, "0");
   }
 
   public PerDetailsDao getPerDetails() {
@@ -166,5 +175,13 @@ public class PreferenceManager {
     Gson gson = new Gson();
     String json = pref.getString(DRAFT_LOAN, null);
     return gson.fromJson(json, PreLoanDao.class);
+  }
+
+  public String getLoanProvider() {
+    return pref.getString(LOAN_PROVIDER, "sbi");
+  }
+
+  public String getLoanType() {
+    return pref.getString(LOAN_TYPE, "personal");
   }
 }

@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import androidx.appcompat.app.AppCompatDelegate;
 import com.sonusourav.oppoflex.R;
-import com.sonusourav.oppoflex.TestActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
   
@@ -38,7 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     switch (view.getId()){
       case R.id.new_loan:
-        startActivity(new Intent(MainActivity.this, NewLoanActivity.class));
+        startActivity(new Intent(MainActivity.this, ChooseActivity.class));
         break;
       case R.id.image_pre_loans:
         startActivity(new Intent(MainActivity.this, PreLoanActivity.class));

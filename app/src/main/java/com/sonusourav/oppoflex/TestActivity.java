@@ -9,7 +9,7 @@ public class TestActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    getLayoutInflater().inflate(R.layout.fragment_loan_details, frameLayout);
+    getLayoutInflater().inflate(R.layout.activity_choose, frameLayout);
 
   }
 }

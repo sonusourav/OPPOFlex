@@ -1,6 +1,7 @@
 package com.sonusourav.oppoflex.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.sonusourav.oppoflex.R;
+import com.sonusourav.oppoflex.fragments.FragFinDetails;
+import com.sonusourav.oppoflex.fragments.FragLoanDetails;
 import com.sonusourav.oppoflex.fragments.FragPersonalDetails;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -35,13 +38,50 @@ public class NewLoanActivity extends AppCompatActivity {
     if (!checkPermission()) {
       requestPermission();
     }
-    loadFragment(new FragPersonalDetails(),value);
 
-    Log.d("NewLoanActivity","reaching new loan activity");
+    Intent intent= getIntent();
+    String draftLevel=intent.getStringExtra("draftLevel");
+    Log.d("newLoanActivity",intent.getStringExtra("draftLevel")+"");
+
+    if (draftLevel != null) {
+      Log.d("newLoanActivity","draftNotNull");
+      if( !draftLevel.isEmpty()){
+        Log.d("newLoanActivity","draftNotEmpty");
+        int level=Integer.parseInt(draftLevel);
+        initialLoadFrag(level);
+      }else{
+        Log.d("newLoanActivity","draftIsEmpty");
+        loadFragment(new FragPersonalDetails(),"");
+      }
+    }else{
+      Log.d("newLoanActivity","draftIsNull");
+      loadFragment(new FragPersonalDetails(),"");
+    }
   }
 
   private void init(){
     fragmentManager=getSupportFragmentManager();
+  }
+
+
+  private void initialLoadFrag(int draftLevel){
+
+    Log.d("NewLoanActivity","reaching new loan activity");
+    value="draftLoan";
+    switch (draftLevel){
+      case 1:
+        loadFragment(new FragPersonalDetails(),value);
+        break;
+      case 2:
+        loadFragment(new FragFinDetails(),value);
+        break;
+      case 3:
+        loadFragment(new FragLoanDetails(),value);
+        break;
+        default:
+          loadFragment(new FragPersonalDetails(),"");
+          break;
+    }
   }
 
   private void loadFragment(Fragment fragment,String value) {

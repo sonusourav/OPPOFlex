@@ -7,12 +7,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.print.PdfConverter;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,42 +27,25 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.Volley;
 import com.anton46.stepsview.StepsView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.sonusourav.oppoflex.Dao.FinDetailsDao;
 import com.sonusourav.oppoflex.Dao.LoanDetailsDao;
-import com.sonusourav.oppoflex.Dao.PerDetailsDao;
 import com.sonusourav.oppoflex.Dao.PreLoanDao;
 import com.sonusourav.oppoflex.R;
 import com.sonusourav.oppoflex.Utils.DialogUtils;
-import com.sonusourav.oppoflex.Utils.InputStreamReader;
-import com.sonusourav.oppoflex.Utils.PdfActivity;
 import com.sonusourav.oppoflex.Utils.PreferenceManager;
-import com.sonusourav.oppoflex.activities.MainActivity;
+import com.sonusourav.oppoflex.activities.PdfActivity;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Random;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -86,7 +71,7 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
 
   public FragLoanDetails(){}
 
-  public static Handler handler = new Handler();
+  private static Handler handler = new Handler();
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -139,12 +124,22 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
 
 
     if(getArguments()!=null){
-      if(getArguments().getString("draftLoan").equals("draftLoan") && Integer.parseInt(loanDetailsPref.getDraftLevel())>2){
-        LoanDetailsDao perDetailsDao=loanDetailsPref.getLoanDetails();
-        cost.setText(perDetailsDao.getPropertyCost());
-        loanAmount.setText(perDetailsDao.getLoanAmount());
-        loanPurpose.setText(perDetailsDao.getLoanPurpose());
-        tenure.setText(perDetailsDao.getTenure());
+      Log.d("FragLoanDetails","arguments not null");
+
+      if(getArguments().getString("draftLoan")!=null) {
+
+        Log.d("FragLoanDetails", "bundle not null");
+        Log.d("FragLoanDetails", loanDetailsPref.getDraftLevel());
+        Log.d("FragLoanDetails", getArguments().getString("draftLoan"));
+
+        if(getArguments().getString("draftLoan").equals("draftLoan") && Integer.parseInt(loanDetailsPref.getDraftLevel())==3){
+          LoanDetailsDao perDetailsDao=loanDetailsPref.getLoanDetails();
+          cost.setText(perDetailsDao.getPropertyCost());
+          loanAmount.setText(perDetailsDao.getLoanAmount());
+          loanPurpose.setText(perDetailsDao.getLoanPurpose());
+          tenure.setText(perDetailsDao.getTenure());
+        }
+
       }
     }
 
@@ -172,12 +167,61 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
         }
       }
     });
-
-
   }
 
-  private void addToPreviousLoans(){
 
+  private void convertHtml2PDF(String src){
+
+    File root = new File(Environment.getExternalStorageDirectory(), "OPPOFLEX");
+    if (!root.exists()) {
+      root.mkdirs();
+    }
+    if (root.exists()) {
+
+      PdfConverter converter = PdfConverter.getInstance();
+      File file = new File(root, "loanNo"+i1+".pdf");
+      converter.convert(getActivity(), src, file);
+      //dialogUtils.hideProgressDialog();
+
+      notificationDialog();
+      Log.d("FragLoanDetails",pathName);
+      final Intent intent=new Intent(getActivity(), PdfActivity.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      intent.putExtra("filePath",pathName);
+
+      final Handler handler = new Handler();
+      handler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          dialogUtils.hideProgressDialog();
+          startActivity(intent);
+        }
+      }, 4000);
+
+    }
+  }
+
+
+  private void showAlertDialog(String title, String message) {
+    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+    alertDialogBuilder.setTitle(title);
+    alertDialogBuilder
+        .setMessage(message)
+        .setCancelable(false)
+        .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int id) {
+            dialog.cancel();
+          }
+        });
+    // create alert dialog
+    AlertDialog alertDialog = alertDialogBuilder.create();
+    // show it
+    alertDialog.show();
+  }
+
+
+    private void addToPreviousLoans(){
+    Log.d("FragLoanDetails","reaching addToPrevious");
     final DatabaseReference preLoansRef = baseRef.child("PreviousLoans").child(encodeUserEmail(
         Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).push().getRef();
 
@@ -194,15 +238,16 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
           handler.post(new Runnable() {
             @Override
             public void run() {
-              convertHtml2Pdf(finalPersonalDet);
+              Log.d("FragLoanDetails","convertHtl");
+
+              convertHtml2PDF(finalPersonalDet);
+
             }
           });
-
         }else
         {
           dialogUtils.hideProgressDialog();
           Toast.makeText(getActivity(),"Failed to saved",Toast.LENGTH_SHORT).show();
-
         }
       }
     });
@@ -225,6 +270,8 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
 
     personalDet=personalDet.replace("employer_name","value="+loanDetailsPref.getFinDetails().getEmpFirstName()+" "+loanDetailsPref.getFinDetails().getEmpLastName());
     personalDet=personalDet.replace("department_name","value="+loanDetailsPref.getFinDetails().getDept());
+    personalDet=personalDet.replace("department_name","value="+loanDetailsPref.getFinDetails().getDept());
+    personalDet=personalDet.replace("date_of_retirement","value="+loanDetailsPref.getFinDetails().getDor());
     personalDet=personalDet.replace("designation","value="+loanDetailsPref.getFinDetails().getDesignation());
     personalDet=personalDet.replace("experience","value="+loanDetailsPref.getFinDetails().getExp());
     personalDet=personalDet.replace("net_salary","value="+loanDetailsPref.getFinDetails().getSalary());
@@ -252,6 +299,10 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
     loanDetails=new LoanDetailsDao(cost.getText().toString(),loanAmount.getText().toString(),
         loanPurpose.getText().toString(),repayment.getSelectedItem().toString(),tenure.getText().toString());
 
+    PreLoanDao preLoanDao=loanDetailsPref.getDraftLoan();
+    previousLoan=new PreLoanDao(preLoanDao.getLoanId(),preLoanDao.getDate(),preLoanDao.getName(),preLoanDao.getEmail(),preLoanDao.getTitle()
+    ,preLoanDao.getBankName(),preLoanDao.getLoanType(),preLoanDao.getImageUrl(),preLoanDao.getFileLocation()
+        ,loanDetailsPref.getPerDetails(),loanDetailsPref.getFinDetails(),loanDetails);
     loanDetailsPref.getDraftLoan().setLoanDetailsDao(loanDetails);
     return true;
   }
@@ -389,77 +440,32 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
     return false;
   }
 
-  private void convertHtml2Pdf(String strValue){
-    String strApiKey = "4e558d24-8562-408e-8352-15b50cf050eb";//Web api Parameter
-    String webUrl = "http://api.html2pdfrocket.com/pdf";//Web Api Url
-    HashMap<String, String> params = new HashMap<String, String>();
-    params.put("apiKey", strApiKey);
-    params.put("value", strValue);
-    InputStreamReader request = new InputStreamReader(Request.Method.POST, webUrl,
-        new Response.Listener<byte[]>() {
-          @Override
-          public void onResponse(byte[] response) {
-            // TODO handle the response
-            try {
-              if (response != null) {
-                root = new File(Environment.getExternalStorageDirectory(), "OPPOFLEX");
-                if (!root.exists()) {
-                  root.mkdirs();
-                }
-                if (root.exists()) {
-
-
-                  gpxfile = new File(root, "sample" + loanDetailsPref.getDraftLoan().getLoanId() + ".pdf");
-                  OutputStream op = new FileOutputStream(gpxfile);
-                  gpxfile.setWritable(true);
-                  op.write(response);
-                  op.flush();
-                  op.close();
-
-
-                }
-                Toast.makeText(getActivity(), "Content Write To the file name loanNo" + i1 + ".pdf in OPPOFLEX Directory", Toast.LENGTH_LONG).show();
-                System.out.print("Response ----------------------" + Arrays.toString(response));
-                Objects.requireNonNull(getActivity()).startActivity(new Intent(getActivity(), MainActivity.class));
-                dialogUtils.hideProgressDialog();
-
-                handler.post(new Runnable() {
-                  @Override
-                  public void run() {
-                    notificationDialog();
-                  }
-                });
-
-              }
-            } catch (Exception e) {
-              Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-              e.printStackTrace();
-            }
-          }
-        }
-        , new Response.ErrorListener() {
-
-      @Override
-      public void onErrorResponse(VolleyError error) {
-        error.printStackTrace();
-      }
-    }, params);
-    RequestQueue mRequestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()), new HurlStack());
-    mRequestQueue.add(request);
-  }
-
   private void notificationDialog() {
-    NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+    NotificationManager notificationManager = (NotificationManager) Objects.requireNonNull(
+        getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
     String NOTIFICATION_CHANNEL_ID = "oppoflex_01";
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       @SuppressLint("WrongConstant")
-      NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "PDF_completion", NotificationManager.IMPORTANCE_MAX);
+      NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "PDF_completion", NotificationManager.IMPORTANCE_DEFAULT);
       notificationChannel.setDescription(i1);
       notificationChannel.enableLights(true);
       notificationChannel.setLightColor(Color.RED);
       notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
       notificationChannel.enableVibration(true);
-      notificationManager.createNotificationChannel(notificationChannel);
+      if (notificationManager != null) {
+        notificationManager.createNotificationChannel(notificationChannel);
+      }
+
+      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getActivity(), NOTIFICATION_CHANNEL_ID);
+      notificationBuilder.setAutoCancel(true)
+          .setDefaults(Notification.DEFAULT_ALL)
+          .setWhen(System.currentTimeMillis())
+          .setSmallIcon(R.mipmap.icon_logo)
+          .setTicker("OppoFlex")
+          .setContentTitle("Your PDF is ready")
+          .setContentText("Your pdf is stored at "+ i1 +" .pdf in OppofFlex Directory")
+          .setContentInfo("Open pdf")
+      ;
     }
 
     Log.d("FragLoanDetails",pathName);
@@ -478,10 +484,16 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
         .setContentTitle("Your PDF is ready")
         .setContentText("Your pdf is stored at "+ i1 +" .pdf in OppofFlex Directory")
         .setContentInfo("Open pdf")
-       .setContentIntent(pendingIntent)
+        .setContentIntent(pendingIntent)
     ;
+
+    loanDetailsPref.setDraftLoan(null);
+    loanDetailsPref.setLoanDetails(null);
+    loanDetailsPref.setFinDetails(null);
+    loanDetailsPref.setPerDetails(null);
 
     notificationManager.notify(1, notificationBuilder.build());
   }
+
 
 }

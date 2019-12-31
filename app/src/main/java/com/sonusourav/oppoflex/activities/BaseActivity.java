@@ -33,7 +33,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.sonusourav.oppoflex.R;
-import com.sonusourav.oppoflex.TestActivity;
 import com.sonusourav.oppoflex.Utils.PreferenceManager;
 import com.sonusourav.oppoflex.account.LoginActivity;
 import java.util.Objects;

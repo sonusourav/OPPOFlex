@@ -141,6 +141,7 @@
       android:layout_marginTop="5dp"
       android:textSize="18sp"
       android:padding="10dp"
+      android:inputType="date"
       android:drawableEnd="@drawable/icon_calendar"
       android:clickable="true"
       android:focusable="true"

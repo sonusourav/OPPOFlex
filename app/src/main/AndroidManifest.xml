@@ -27,6 +27,9 @@
       android:theme="@style/AppTheme"
       tools:replace="allowBackup,android:appComponentFactory"
       android:usesCleartextTraffic="true">
+    <meta-data
+        android:name="pdftron_license_key"
+        android:value="${pdftronLicenseKey}"/>
     <activity
         android:name=".activities.SplashActivity"
         android:screenOrientation="portrait"
@@ -63,7 +66,13 @@
 
     <activity android:name=".TestActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar.TitleBar" />
+        android:theme="@style/AppTheme.NoActionBar.TitleBar" >
+     <!-- <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>-->
+    </activity>
 
     <activity android:name=".activities.NewLoanActivity"
         android:theme="@style/AppTheme.NoActionBar.TitleBar"
@@ -95,7 +104,18 @@
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".activities.MainActivity"/>
     </activity>
-    <activity android:name=".Utils.PdfActivity" />
+    <activity android:name=".activities.PdfActivity"
+        android:label="PDF Activity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".activities.MainActivity"/>
+    </activity>
+    <activity android:name=".activities.ChooseActivity"
+        android:label="OPPO Flex">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".activities.MainActivity"/>
+    </activity>
   </application>
 
 </manifest>

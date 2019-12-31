@@ -2,7 +2,6 @@ package com.sonusourav.oppoflex.Utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import com.sonusourav.oppoflex.R;
 
 public class DialogUtils {

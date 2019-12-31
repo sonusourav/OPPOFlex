@@ -2,7 +2,6 @@ package com.sonusourav.oppoflex.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.sonusourav.oppoflex.Dao.PreLoanDao;
 import com.sonusourav.oppoflex.R;
-import com.sonusourav.oppoflex.Utils.PdfActivity;
+import com.sonusourav.oppoflex.Utils.PreferenceManager;
 import com.sonusourav.oppoflex.activities.NewLoanActivity;
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.sonusourav.oppoflex.activities.PdfActivity;
 import java.util.ArrayList;
 import org.jetbrains.annotations.NotNull;
 
@@ -65,8 +64,8 @@ public class PreLoanAdapter extends RecyclerView.Adapter<PreLoanAdapter.MyViewHo
     holder.userName.setText(loan.getName());
     holder.email.setText(loan.getEmail());
     holder.title.setText(loan.getTitle());
-    holder.bankName.setText("State Bank of India");
-    holder.type.setText("Education Loan");
+    holder.bankName.setText(loan.getBankName());
+    holder.type.setText(loan.getLoanType());
 
     Glide.with(mcontext)
         .load("" +loan.getImageUrl())
@@ -75,11 +74,10 @@ public class PreLoanAdapter extends RecyclerView.Adapter<PreLoanAdapter.MyViewHo
     holder.cardView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-        if(position==0){
+        PreferenceManager preferenceManager= new PreferenceManager(mcontext);
+        if(position==0 && Integer.parseInt(preferenceManager.getDraftLevel())>0 ){
           Intent intent=new Intent(mcontext,NewLoanActivity.class);
-          Bundle bundle=new Bundle();
-          bundle.putString("draftLoan","draftLoan");
-          intent.putExtras(bundle);
+          intent.putExtra("draftLevel",preferenceManager.getDraftLevel());
           intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
           mcontext.startActivity(intent);
         }else{

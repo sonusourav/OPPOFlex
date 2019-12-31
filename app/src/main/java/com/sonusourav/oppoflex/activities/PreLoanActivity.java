@@ -8,8 +8,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.core.app.NavUtils;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -25,6 +23,7 @@ import com.sonusourav.oppoflex.R;
 import com.sonusourav.oppoflex.Utils.PreferenceManager;
 import com.sonusourav.oppoflex.adapters.PreLoanAdapter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class PreLoanActivity extends BaseActivity {
@@ -60,8 +59,12 @@ public class PreLoanActivity extends BaseActivity {
     final FirebaseUser user = firebaseAuth.getCurrentUser();
 
     if (user != null) {
+      childRef=rootRef.child(encodeUserEmail(Objects.requireNonNull(user.getEmail())));
+      updateItems(user);
+  }
+  }
 
-    childRef=rootRef.child(encodeUserEmail(Objects.requireNonNull(user.getEmail())));
+  private void updateItems(FirebaseUser user){
 
     Log.d(TAG,encodeUserEmail(user.getEmail()));
     childRef.addValueEventListener(new ValueEventListener() {
@@ -75,18 +78,24 @@ public class PreLoanActivity extends BaseActivity {
           int i=0;
           Log.d(TAG,Integer.toString(++i));
           Log.d(TAG, "dataSnapshot exists");
+          ArrayList<PreLoanDao> tempElements = new ArrayList<>();
 
           for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             Log.d(TAG, "onDataChange: reached");
             PreLoanDao loan = snapshot.getValue(PreLoanDao.class);
 
             if (loan != null) {
-              preLoanList.add(loan);
+              tempElements.add(loan);
               Log.d(TAG,loan.getTitle());
             }
           }
 
+          Collections.reverse(tempElements);
+          preLoanList.addAll(tempElements);
+
           PreferenceManager preLoanPref= new PreferenceManager(PreLoanActivity.this);
+          Log.d("PreLoanActivity",preLoanPref.getDraftLevel());
+
           if(Integer.parseInt(preLoanPref.getDraftLevel())>0){
             PreLoanDao draftLoan=preLoanPref.getDraftLoan();
             preLoanList.add(0,draftLoan);
@@ -107,7 +116,7 @@ public class PreLoanActivity extends BaseActivity {
         mShimmerViewContainer.setVisibility(View.GONE);
       }
     });
-  }
+
   }
 
   @Override

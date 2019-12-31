@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,7 +60,7 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
   private PreferenceManager perDetailsPref;
   private PerDetailsDao personalDetails;
   private String id,value="";
-
+  private String photoURL="";
   public FragPersonalDetails(){}
 
   @Override
@@ -140,12 +139,14 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
     email.setText(perDetailsPref.getPrefEmail());
     dob.setText(sdf.format(calendar.getTime()));
 
-    id = (int)((Math.random() * ((1000000 - 100) + 1)) + 100 )+"";
-    perDetailsPref.getDraftLoan().setLoanId(id);
-
     if(getArguments()!=null){
-      if(getArguments().getBundle("draftLoan")!=null){
-        if(getArguments().getBundle("draftLoan").equals("draftLoan") && Integer.parseInt(perDetailsPref.getDraftLevel())>0){
+      Log.d("FragPersonalDetails","arguments not null");
+      if(getArguments().getString("draftLoan")!=null){
+        Log.d("FragPersonalDetails","bundle not null");
+        Log.d("FragPersonalDetails",perDetailsPref.getDraftLevel());
+        Log.d("FragPersonalDetails",getArguments().getString("draftLoan"));
+
+        if(getArguments().getString("draftLoan").equals("draftLoan") && Integer.parseInt(perDetailsPref.getDraftLevel())==1){
           PerDetailsDao perDetailsDao=perDetailsPref.getPerDetails();
           firstName.setText(perDetailsDao.getFirstName());
           lastName.setText(perDetailsDao.getLastName());
@@ -153,7 +154,6 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
           dob.setText(perDetailsDao.getDob());
           mobNo.setText(perDetailsDao.getMobNo());
           address.setText(perDetailsDao.getAddress());
-          value="draftLoan";
         }
       }
 
@@ -204,7 +204,22 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
     perDetailsPref.setPerDetails(personalDetails);
     perDetailsPref.setDraftLevel("1");
     Toast.makeText(getActivity(),"Saved successfully",Toast.LENGTH_SHORT).show();
+    value="draftLoan";
 
+    if(firebaseAuth.getCurrentUser()!=null){
+      if(firebaseAuth.getCurrentUser().getPhotoUrl()!=null){
+        photoURL=firebaseAuth.getCurrentUser().getPhotoUrl().toString();
+      }
+
+    }
+    id = (int)((Math.random() * ((1000000 - 100) + 1)) + 100 )+"";
+    String pathName = Environment.getExternalStorageDirectory().getAbsolutePath()+"/OPPOFLEX/loanNo"+id+".pdf";
+    Log.d("FragPersonalDetails",pathName);
+
+    PreLoanDao preLoanDao=new PreLoanDao(id,sdf.format(calendar.getTime()),(firstName.getText().toString().trim()+lastName.getText().toString().trim()),email.getText().toString().trim(),
+        perDetailsPref.getLoanProvider() + " "+ perDetailsPref.getLoanType(),perDetailsPref.getLoanProvider(),perDetailsPref.getLoanType(),photoURL,pathName,personalDetails);
+
+    perDetailsPref.setDraftLoan(preLoanDao);
   }
 
   private boolean checkIfFilled(EditText... inputText){
@@ -232,23 +247,6 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
     personalDetails=new PerDetailsDao(firstName.getText().toString(),lastName.getText().toString(),
         email.getText().toString(),dob.getText().toString(),
         gender.getSelectedItem().toString(),mobNo.getText().toString(),address.getText().toString());
-
-    String pathName=
-        Environment.getExternalStorageDirectory().getAbsolutePath()+"/OPPOFLEX/loanNo"+id+".pdf";
-    Log.d("FragPersonalDetails",pathName);
-
-    String photoURL="";
-    if(firebaseAuth.getCurrentUser()!=null){
-      if(firebaseAuth.getCurrentUser().getPhotoUrl()!=null){
-        photoURL=firebaseAuth.getCurrentUser().getPhotoUrl().toString();
-      }
-
-    }
-
-    PreLoanDao preLoanDao=new PreLoanDao(id,sdf.format(calendar.getTime()),(firstName.getText().toString().trim()+lastName.getText().toString().trim()),email.getText().toString().trim(),
-        "Loan for education","State Bank of India","Education Loan",photoURL,pathName,personalDetails);
-
-    perDetailsPref.setDraftLoan(preLoanDao);
 
     return true;
   }

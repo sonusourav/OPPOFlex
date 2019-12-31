@@ -37,20 +37,6 @@
             />
       </menu>
     </item>
-
-    <item android:title="More">
-      <menu>
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/icon_settings"
-            android:title="Settings"/>
-        <item
-            android:id="@+id/nav_feedback"
-            android:icon="@drawable/icon_feedback"
-            android:title="Feedback"
-            />
-      </menu>
-    </item>
   </group>
 
 
