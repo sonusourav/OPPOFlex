@@ -66,6 +66,9 @@ public class PreLoanActivity extends BaseActivity {
 
   private void updateItems(FirebaseUser user){
 
+    final PreferenceManager preLoanPref= new PreferenceManager(PreLoanActivity.this);
+    Log.d("PreLoanActivity",preLoanPref.getDraftLevel());
+
     Log.d(TAG,encodeUserEmail(user.getEmail()));
     childRef.addValueEventListener(new ValueEventListener() {
 
@@ -93,8 +96,7 @@ public class PreLoanActivity extends BaseActivity {
           Collections.reverse(tempElements);
           preLoanList.addAll(tempElements);
 
-          PreferenceManager preLoanPref= new PreferenceManager(PreLoanActivity.this);
-          Log.d("PreLoanActivity",preLoanPref.getDraftLevel());
+
 
           if(Integer.parseInt(preLoanPref.getDraftLevel())>0){
             PreLoanDao draftLoan=preLoanPref.getDraftLoan();
@@ -105,6 +107,10 @@ public class PreLoanActivity extends BaseActivity {
           mShimmerViewContainer.setVisibility(View.GONE);
         } else {
           Log.d(TAG,"else");
+          if(Integer.parseInt(preLoanPref.getDraftLevel())>0){
+            PreLoanDao draftLoan=preLoanPref.getDraftLoan();
+            preLoanList.add(0,draftLoan);
+          }
           mShimmerViewContainer.setVisibility(View.GONE);
         }
       }

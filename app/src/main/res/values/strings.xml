@@ -8,7 +8,7 @@
   <string name="slide_1_desc">Say no to typing</string>
   <string name="slide_2_title">Voice Support</string>
   <string name="slide_2_desc">Voice is the new UI </string>
-  <string name="slide_3_title">Google Assistant</string>
+  <string name="slide_3_title">OPPO Bot</string>
   <string name="slide_3_desc">Always there to guide you</string>
   <string name="hello_world">Hello world!</string>
   <string name="password">Password</string>
@@ -166,4 +166,7 @@ div.cls_009{font-family:Arial,serif;font-size:7.5px;color:rgb(34,31,32);font-wei
 
 ]]>
   </string>
+  <string name="some_error_occured">Some error occurred</string>
+  <string name="APP_ID">1f29cd1e75ac6045e3d257b9e8d4a48f5</string>
+  <string name="inavild_app_id_error">Looks like you have not added your application Id in your app level build.gradle file. Please provide your application ID in app level build.gradle file\'s defaultConfig <a href='https://github.com/Kommunicate-io/Kommunicate-Android-Chat-SDK'>Refer here</a>. Replace Your-APP_ID with the application ID obtained from Kommunicate dashboard.</string>
 </resources>

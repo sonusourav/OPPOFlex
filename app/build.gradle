@@ -86,6 +86,11 @@ dependencies {
   //gson
   implementation 'com.google.code.gson:gson:2.8.5'
 
+  //guava
+  implementation("com.google.guava:guava:28.2-android")
+
+  //kommunicate
+  implementation 'io.kommunicate.sdk:kommunicateui:1.9.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

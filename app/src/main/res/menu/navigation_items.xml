@@ -8,14 +8,19 @@
         android:title="Home"/>
 
     <item
+        android:id="@+id/nav_new_loans"
+        android:icon="@drawable/icon_new_loan"
+        android:title="New Loan"/>
+
+    <item
         android:id="@+id/nav_pre_loans"
         android:icon="@drawable/icon_pre_loans"
         android:title="Previous Loans"/>
 
     <item
-        android:id="@+id/nav_new_loans"
-        android:icon="@drawable/icon_new_loan"
-        android:title="New Loan"/>
+        android:id="@+id/nav_oppobot"
+        android:icon="@drawable/icons_bot"
+        android:title="OPPOBot"/>
 
     <item android:title="User Update"
         >

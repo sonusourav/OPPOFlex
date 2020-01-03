@@ -64,9 +64,7 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
   private LoanDetailsDao loanDetails;
   private PreLoanDao previousLoan;
 
-  private File gpxfile = null;
   private String pathName;
-  private File root;
   private String i1;
 
   public FragLoanDetails(){}
@@ -223,7 +221,7 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
     private void addToPreviousLoans(){
     Log.d("FragLoanDetails","reaching addToPrevious");
     final DatabaseReference preLoansRef = baseRef.child("PreviousLoans").child(encodeUserEmail(
-        Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).push().getRef();
+        Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).child(i1);
 
     preLoansRef.setValue(previousLoan).addOnCompleteListener(new OnCompleteListener<Void>() {
       @Override
@@ -479,11 +477,9 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
         .setDefaults(Notification.DEFAULT_ALL)
         .setWhen(System.currentTimeMillis())
         .setSmallIcon(R.mipmap.icon_logo)
-        .setTicker("OppoFlex")
         .setPriority(Notification.PRIORITY_MAX)
         .setContentTitle("Your PDF is ready")
         .setContentText("Your pdf is stored at "+ i1 +" .pdf in OppofFlex Directory")
-        .setContentInfo("Open pdf")
         .setContentIntent(pendingIntent)
     ;
 
@@ -494,6 +490,5 @@ public class FragLoanDetails extends Fragment implements View.OnClickListener, V
 
     notificationManager.notify(1, notificationBuilder.build());
   }
-
 
 }

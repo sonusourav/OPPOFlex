@@ -130,7 +130,7 @@
       android:paddingEnd="10dp"
       />
 
-  <EditText
+  <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/dob"
@@ -141,9 +141,7 @@
       android:layout_marginTop="5dp"
       android:textSize="18sp"
       android:padding="10dp"
-      android:inputType="date"
       android:drawableEnd="@drawable/icon_calendar"
-      android:clickable="true"
       android:focusable="true"
       />
 

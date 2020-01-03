@@ -192,8 +192,8 @@
             android:paddingStart="40dp"
             android:paddingTop="40dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/image_password"
-            android:text="Update password"
+            android:src="@drawable/chatbot"
+            android:text="Launch OPPOBot"
             android:textColor="@color/black"
             />
 
@@ -203,7 +203,7 @@
             android:layout_marginTop="8dp"
             android:clickable="false"
             android:gravity="center"
-            android:text="Update password"
+            android:text="Launch OPPOBot"
             android:textColor="@color/black"
             android:textStyle="bold"
             />

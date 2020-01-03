@@ -1,16 +1,16 @@
 package com.sonusourav.oppoflex.Utils;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import com.sonusourav.oppoflex.R;
 
 public class DialogUtils {
   
-  private Activity context;
+  private Context context;
   private String message;
   private ProgressDialog progressDialog;
 
-  public DialogUtils(Activity context,String msg){
+  public DialogUtils(Context context,String msg){
     this.context=context;
     this.message=msg;
     progressDialog=new ProgressDialog(context);

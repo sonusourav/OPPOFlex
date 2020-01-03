@@ -36,8 +36,9 @@ public class PdfActivity extends AppCompatActivity
     pdfFileName = getIntent().getStringExtra("filePath");
     Toast.makeText(getApplicationContext(),pdfFileName,Toast.LENGTH_SHORT);
     Log.d(TAG,pdfFileName);
-    if(pdfFileName!=null)
-    displayFromSdcard(pdfFileName);
+    if(pdfFileName!=null){
+      displayFromSdcard(pdfFileName);
+    }
     else{
       startActivity(new Intent(PdfActivity.this, MainActivity.class));
       Toast.makeText(getApplicationContext(),"File Does not exist",Toast.LENGTH_SHORT).show();
@@ -48,16 +49,22 @@ public class PdfActivity extends AppCompatActivity
 
     File file = new File(path);
 
-    Log.d(TAG,path);
-    pdfView.fromFile(file)
-        .defaultPage(pageNumber)
-        .enableSwipe(true)
-        .swipeHorizontal(false)
-        .onPageChange(this)
-        .enableAnnotationRendering(true)
-        .onLoad(this)
-        .scrollHandle(new DefaultScrollHandle(this))
-        .load();
+    if(file.exists()){
+      Log.d(TAG,path);
+      pdfView.fromFile(file)
+          .defaultPage(pageNumber)
+          .enableSwipe(true)
+          .swipeHorizontal(false)
+          .onPageChange(this)
+          .enableAnnotationRendering(true)
+          .onLoad(this)
+          .scrollHandle(new DefaultScrollHandle(this))
+          .load();
+    }else{
+      Toast.makeText(getApplicationContext(),"File Does not exist",Toast.LENGTH_SHORT).show();
+    }
+
+
   }
   @Override
   public void onPageChanged(int page, int pageCount) {

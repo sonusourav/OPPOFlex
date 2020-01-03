@@ -396,7 +396,6 @@ public class ProfileActivity extends BaseActivity
                             .load(bitmap)
                             .into(profilePic);
 
-
                     uploadImage(PICK_IMAGE_REQUEST1);
 
 

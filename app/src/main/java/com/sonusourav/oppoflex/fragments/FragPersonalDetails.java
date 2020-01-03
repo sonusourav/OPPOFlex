@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.anton46.stepsview.StepsView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,7 +49,7 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
 
   private StepsView stepsView;
   private EditText firstName,lastName,email,mobNo,address;
-  private EditText dob;
+  private TextView dob;
   private Spinner gender;
   private Button next, saveAsDraft;
   private DialogUtils dialogUtils;
@@ -109,8 +112,6 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
   private void updateLabel() {
 
     dob.setText(sdf.format(calendar.getTime()));
-    dob.requestFocus();
-    dob.setSelection(dob.getText().length());
   }
 
 
@@ -212,7 +213,15 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
       }
 
     }
-    id = (int)((Math.random() * ((1000000 - 100) + 1)) + 100 )+"";
+
+    String val= firstName.getText().subSequence(0,3)+sdf.format(calendar.getTime())+perDetailsPref.getLoanProvider()+perDetailsPref.getLoanType();
+
+    id = Math.abs(Hashing.murmur3_32()
+        .newHasher()
+        .putString(val, Charsets.UTF_8)
+        .hash()
+        .asInt()) + "";
+
     String pathName = Environment.getExternalStorageDirectory().getAbsolutePath()+"/OPPOFLEX/loanNo"+id+".pdf";
     Log.d("FragPersonalDetails",pathName);
 
@@ -269,12 +278,12 @@ public class FragPersonalDetails extends Fragment implements View.OnClickListene
 
     switch (v.getId()){
       case R.id.next:
-        if(checkIfFilled(firstName,lastName,email,dob,mobNo,address)){
+        if(checkIfFilled(firstName,lastName,email,mobNo,address)){
           sendPersonalDetails();
         }
         break;
       case R.id.save_as_draft:
-        if(checkIfFilled(firstName,lastName,email,dob,mobNo,address)){
+        if(checkIfFilled(firstName,lastName,email,mobNo,address)){
           saveAsDraft();
         }
         break;

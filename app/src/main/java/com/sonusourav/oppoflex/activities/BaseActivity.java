@@ -35,6 +35,7 @@ import com.google.firebase.auth.UserInfo;
 import com.sonusourav.oppoflex.R;
 import com.sonusourav.oppoflex.Utils.PreferenceManager;
 import com.sonusourav.oppoflex.account.LoginActivity;
+import com.sonusourav.oppoflex.chatbot.ChatbotActivity;
 import java.util.Objects;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -102,7 +103,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
 
         case R.id.nav_new_loans: {
-          startActivity(new Intent().setClass(this, NewLoanActivity.class));
+          startActivity(new Intent().setClass(this, ChooseActivity.class));
+          break;
+        }
+
+        case R.id.nav_oppobot: {
+          startActivity(new Intent().setClass(this, ChatbotActivity.class));
           break;
         }
 
@@ -115,8 +121,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
           startActivity(new Intent().setClass(this, UpdatePasswordActivity.class));
           break;
         }
-
-
 
         case R.id.nav_logout: {
           PreferenceManager preferenceManager =

@@ -19,6 +19,10 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="@drawable/cardview_gradient"
+      android:id="@+id/pre_loan_card_rl"
+      android:paddingBottom="5dp"
+
       >
 
     <LinearLayout
@@ -37,7 +41,7 @@
           android:paddingStart="20dp"
           android:layout_marginTop="10dp"
           android:text="Id no."
-          android:textColor="@color/light_black"
+          android:textColor="@color/white"
           android:textSize="15sp"
           />
 
@@ -51,7 +55,7 @@
           android:paddingStart="3dp"
           android:layout_marginTop="10dp"
           android:text="Date"
-          android:textColor="@color/light_black"
+          android:textColor="@color/white"
           android:textSize="15sp"
           />
     </LinearLayout>
@@ -76,7 +80,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="@string/username"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         />
 
@@ -90,7 +94,7 @@
         android:paddingStart="22dp"
         android:paddingEnd="20dp"
         android:text="@string/email"
-        android:textColor="@color/light_black"
+        android:textColor="@color/white"
         android:textSize="15sp"
         />
 
@@ -116,7 +120,7 @@
       android:layout_marginTop="10dp"
       android:layout_below="@id/loan_email"
       android:text="title"
-      android:textColor="@color/light_black"
+      android:textColor="@color/white"
       android:textSize="18sp"
       android:ellipsize="marquee"
       />
@@ -140,7 +144,7 @@
           android:paddingStart="20dp"
           android:layout_marginTop="5dp"
           android:text="Bank Name"
-          android:textColor="@color/light_black"
+          android:textColor="@color/white"
           android:textSize="15sp"
           />
 
@@ -154,10 +158,42 @@
           android:paddingStart="3dp"
           android:layout_marginTop="5dp"
           android:text="Loan Type"
-          android:textColor="@color/light_black"
+          android:textColor="@color/white"
           android:textSize="15sp"
           />
     </LinearLayout>
+
+
+
+      <ImageView
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:id="@+id/pre_loan_card_edit"
+          android:src="@drawable/icon_edit"
+          android:layout_marginStart="40dp"
+          android:layout_below="@id/bank_ll"
+          android:layout_alignParentStart="true"
+          android:layout_marginTop="10dp"
+          />
+      <ImageView
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:id="@+id/pre_loan_card_download"
+          android:src="@drawable/icon_download"
+          android:layout_below="@id/bank_ll"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="10dp"
+          />
+      <ImageView
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:id="@+id/pre_loan_card_delete"
+          android:src="@drawable/icon_delete"
+          android:layout_below="@id/bank_ll"
+          android:layout_marginEnd="40dp"
+          android:layout_alignEnd="@id/bank_ll"
+          android:layout_marginTop="10dp"
+          />
 
   </RelativeLayout>
 

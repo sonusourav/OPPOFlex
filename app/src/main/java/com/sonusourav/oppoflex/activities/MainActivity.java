@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import com.sonusourav.oppoflex.R;
+import com.sonusourav.oppoflex.chatbot.ChatbotActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
   
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         break;
 
       case R.id.image_pass:
-        startActivity(new Intent(MainActivity.this,UpdatePasswordActivity.class));
+        startActivity(new Intent(MainActivity.this, ChatbotActivity.class));
         break;
 
       default:
