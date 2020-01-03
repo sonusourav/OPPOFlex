@@ -148,7 +148,7 @@ public class PreLoanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
           if(user!=null){
             DatabaseReference baseRef=database.getReference().child("PreviousLoans").child(encodeUserEmail(
                 Objects.requireNonNull(user.getEmail())));
-            DatabaseReference childRef=baseRef.child("");
+            DatabaseReference childRef=baseRef.child(loan.getLoanId());
 
             childRef.setValue(null);
             preLoansList.remove(position);

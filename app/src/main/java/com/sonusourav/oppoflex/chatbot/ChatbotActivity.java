@@ -20,7 +20,7 @@ public class ChatbotActivity extends AppCompatActivity {
 
     LinearLayout layout;
     boolean exit = false;
-    public final String APP_ID = "1f29cd1e75ac6045e3d257b9e8d4a48f5";
+    public final String APP_ID = "71c9bd769a05623aae8bbfc2c16cca92";
     private static final String INVALID_APP_ID = "INVALID_APPLICATION_ID";
 
     @Override

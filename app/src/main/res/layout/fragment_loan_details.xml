@@ -25,7 +25,7 @@
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Property Cost"
+      android:text="FMV"
       android:textColor="@color/light_black"
       android:layout_marginStart="20dp"
       android:layout_marginEnd="20dp"
@@ -38,7 +38,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/property_cost"
-      android:hint="Property Cost"
+      android:hint="FMV"
       android:padding="10dp"
       android:background="@drawable/border_edit_text"
       android:textColor="@color/light_black"
@@ -61,22 +61,21 @@
       android:paddingEnd="10dp"
       />
 
+
   <EditText
+      android:id="@+id/loan_amount"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/loan_amount"
-      android:hint="Loan Amount"
-      android:padding="10dp"
-      android:background="@drawable/border_edit_text"
-      android:textColor="@color/light_black"
       android:layout_marginStart="20dp"
-      android:layout_marginEnd="20dp"
       android:layout_marginTop="5dp"
-      android:inputType="numberDecimal"
+      android:layout_marginEnd="20dp"
+      android:background="@drawable/border_edit_text"
       android:drawableEnd="@drawable/icon_mic"
+      android:hint="Loan Amount"
+      android:inputType="numberDecimal"
+      android:padding="10dp"
+      android:textColor="@color/light_black"
       />
-
-
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
